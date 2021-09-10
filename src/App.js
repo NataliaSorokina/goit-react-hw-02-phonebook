@@ -10,11 +10,12 @@ class App extends React.Component {
   state = {
     // contacts: []
     contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+      { id: 'BlindBandit', name: 'Toph Beifong', number: '459-12-56' },
+      { id: 'BlueSpirit', name: 'Zuko Sifu-Hotman', number: '443-89-12' },
+      { id: 'ColdFire', name: 'Azula Sozin', number: '645-17-79' },
+      { id: 'AirNomad', name: 'Aang Twinkletoes', number: '227-91-26' },
     ],
+    filter: '',
   };
 
   formSubmitHandler = data => {
@@ -31,25 +32,36 @@ class App extends React.Component {
     console.log(this.state.contacts);
   };
 
+  filterChangeHandler = event => {
+    console.log(event.currentTarget.value);
+    this.setState({ filter: event.currentTarget.value });
+  };
+
+  getfilteredContacts = () => {
+    const normilizedFilter = this.state.filter.toLowerCase();
+    return this.state.contacts.filter(record =>
+      record.name.toLowerCase().includes(normilizedFilter),
+    );
+  };
+
   render() {
     // const { name, number } = this.state.contacts;
+    const filteredContacts = this.getfilteredContacts();
     return (
       <div>
         <h1>Phonebook</h1>
-        {
-          <ContactForm
-            onSubmit={
-              this.formSubmitHandler
-            } /* name={this.state.name} inputChange={this.handleInputChange} number={this.state.number} submit={this.handleSubmit} */
-          />
-        }
+
+        <ContactForm
+          onSubmit={
+            this.formSubmitHandler
+          } /* name={this.state.name} inputChange={this.handleInputChange} number={this.state.number} submit={this.handleSubmit} */
+        />
 
         <Section title="Contacts">
-          {
-            <ContactList
-              /* name={this.state.name} number={this.state.number} */ contacts={this.state.contacts}
-            />
-          }
+          <Filter value={this.state.filter} onChange={this.filterChangeHandler} />
+          <ContactList
+            /* name={this.state.name} number={this.state.number} */ contacts={filteredContacts}
+          />
         </Section>
       </div>
     );
