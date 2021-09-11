@@ -9,16 +9,13 @@ class ContactForm extends Component {
   };
 
   handleInputChange = event => {
-    console.log(event.currentTarget);
-    console.log(event.currentTarget.name);
-    console.log(event.currentTarget.value);
     const { name, value } = event.currentTarget;
     this.setState({ [name]: value });
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    // console.log(this.state);
+
     this.props.onSubmit(this.state);
     this.reset();
   };
@@ -30,7 +27,7 @@ class ContactForm extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label htmlFor="name" /* className={} */>
+        <label htmlFor="name">
           Name
           <input
             type="text"
