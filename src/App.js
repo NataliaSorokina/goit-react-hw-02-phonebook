@@ -1,6 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import styles from './App.module.css';
+import { MainTitle } from './App.styled';
 import Section from 'components/Section/Section';
 import ContactForm from 'components/ContactForm/ContactForm';
 import ContactList from 'components/ContactList/ContactList';
@@ -20,18 +20,18 @@ class App extends React.Component {
   formSubmitHandler = data => {
     const { contacts } = this.state;
     const { name, number } = data;
-    const newData = {
+    const newContact = {
       id: uuidv4(),
       name: name,
       number: number,
     };
 
-    if (contacts.some(contact => contact.name === newData.name)) {
-      alert(`${newData.name} is already in contacts`);
+    if (contacts.some(contact => contact.name === newContact.name)) {
+      alert(`${newContact.name} is already in contacts`);
       return;
     } else {
       this.setState({
-        contacts: [...this.state.contacts, newData],
+        contacts: [...this.state.contacts, newContact],
       });
     }
   };
@@ -58,16 +58,16 @@ class App extends React.Component {
     const filteredContacts = this.getfilteredContacts();
 
     return (
-      <div>
-        <h1>Phonebook</h1>
+      <>
+        <MainTitle>Phonebook</MainTitle>
 
         <ContactForm onSubmit={this.formSubmitHandler} />
 
         <Section title="Contacts">
-          <Filter value={this.state.filter} onChange={this.filterChangeHandler} contact />
+          <Filter value={this.state.filter} onChange={this.filterChangeHandler} />
           <ContactList contacts={filteredContacts} onDeleteContact={this.deleteContact} />
         </Section>
-      </div>
+      </>
     );
   }
 }

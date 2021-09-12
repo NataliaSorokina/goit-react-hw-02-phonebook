@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from 'components/Section/Section.module.css';
+import { MinorTitle } from './Section.styled';
 
 const Section = ({ title, children }) => {
   return (
     <section>
-      <h2>{title}</h2>
+      <MinorTitle>{title}</MinorTitle>
       {children}
     </section>
   );
